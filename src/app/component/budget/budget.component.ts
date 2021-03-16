@@ -17,7 +17,7 @@ export class BudgetComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService
-      .getBudgetList('https://api.youneedabudget.com/v1')
+      .get('https://api.youneedabudget.com/v1/budgets?include_accounts=true')
       .subscribe(
         (resp) => {
           console.log(' Data List ', resp);

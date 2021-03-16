@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppService {
   constructor(private http: HttpClient) {}
-  getBudgetList(url) {
+  get(url) {
     return this.http.get(url, { responseType: 'json' });
   }
 }
