@@ -1,3 +1,21 @@
-table {
-  width: 100%;
+.main-content {
+  margin-top: 8px;
+  .left-content {
+    display: inline-block;
+    margin-left: 2%;
+    margin-right: 8px;
+    width: 60%;
+    table {
+      width: 100%;
+    }
+  }
+
+  .right-content {
+    position: relative;
+    top:0;
+    height: 20px;
+    border: 2px solid blue;
+    display: inline-block;
+    width: 35%;
+  }
 }
