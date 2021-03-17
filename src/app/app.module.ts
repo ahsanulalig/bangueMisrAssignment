@@ -8,7 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
-
+import { MatTableModule } from '@angular/material/table';
 import { BudgetComponent } from './component/budget/budget.component';
 import { TokenInterceptorService } from './service/token-interceptor.service';
 import { AddAccountComponent } from './component/add-account/add-account.component';
@@ -24,6 +24,7 @@ import { AddAccountComponent } from './component/add-account/add-account.compone
     MatToolbarModule,
     MatButtonModule,
     MatGridListModule,
+    MatTableModule,
   ],
   providers: [
     {
