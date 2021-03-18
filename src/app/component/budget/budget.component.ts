@@ -37,6 +37,7 @@ export class BudgetComponent implements OnInit {
           this.budgets = this.budgetsData.data.budgets;
           this.singleBudget = this.budgets[0];
           this.appService.selectedBudgetId = this.singleBudget.id;
+          sessionStorage.setItem('selectedBudgetId', this.singleBudget.id);
         },
         (error) => {
           this.showSpinner = false;
@@ -47,6 +48,7 @@ export class BudgetComponent implements OnInit {
     this.selectedRowIndex = index;
     if (selectedData.id) {
       // this.showSpinner = true;
+      sessionStorage.setItem('selectedBudgetId', selectedData.id);
       this.appService.selectedBudgetId = selectedData.id;
       let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}`;
       this.appService.get(url).subscribe(

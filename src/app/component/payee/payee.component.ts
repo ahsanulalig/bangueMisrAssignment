@@ -14,6 +14,10 @@ export class PayeeComponent implements OnInit {
   constructor(private appService: AppService) {}
 
   ngOnInit(): void {
+    const selectedBudgetId = sessionStorage.getItem('selectedBudgetId');
+    if (selectedBudgetId) {
+      this.appService.selectedBudgetId = selectedBudgetId;
+    }
     let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/payees`;
     this.appService.get(url).subscribe(
       (resp) => {
