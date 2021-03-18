@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { AppService } from "src/app/service/app.service";
-import { CreateAccountModalComponent } from "src/app/modals/create-account-modal/create-account-modal.component";
+import { AppService } from "../../service/app.service";
+import { CreateAccountModalComponent } from "../../modals/create-account-modal/create-account-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 export interface Account {
   name: string;
@@ -68,7 +68,6 @@ export class AddAccountComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateAccountModalComponent, {
       width: "30%",
-      //data: { name: this.name, type: this.type, balance: this.balance },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
