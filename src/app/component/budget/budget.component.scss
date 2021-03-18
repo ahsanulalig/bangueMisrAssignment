@@ -27,7 +27,7 @@
 
   .right-content {
     min-height: 40px;
-    width: 32%;
+    width: 33%;
 
     .item {
       margin-top: 12px;
@@ -50,5 +50,14 @@
       height: 2px;
       background-color: black;
     }
+  }
+}
+
+.budget-container{
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-evenly;
+  table{
+    width: 98%;
   }
 }
