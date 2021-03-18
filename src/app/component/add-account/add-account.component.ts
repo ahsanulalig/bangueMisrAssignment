@@ -21,7 +21,6 @@ export class AddAccountComponent implements OnInit {
   singleAccount;
   selectedRowIndex = 0;
   showSpinner = true;
-
   constructor(private appService: AppService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -36,10 +35,6 @@ export class AddAccountComponent implements OnInit {
         this.accountData = resp;
         if (resp['data'].accounts.length) {
           this.accounts = this.accountData.data.accounts.filter(
-            (account) => !account.deleted
-          );
-        } else {
-          this.accounts = this.defaultData.filter(
             (account) => !account.deleted
           );
         }

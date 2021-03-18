@@ -33,7 +33,9 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row, let i = index; columns: displayedColumns;" class="body-data-row" (click)="showAccountDetail(row, i)"></tr>
+      <tr mat-row *matRowDef="let row, let i = index; columns: displayedColumns;" class="body-data-row"
+      [ngClass] = "{'selected' : selectedRowIndex === i}"
+      (click)="showAccountDetail(row, i)"></tr>
     </table>
   </div>
   <div class="right-content">

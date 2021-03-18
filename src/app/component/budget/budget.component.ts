@@ -26,6 +26,8 @@ export class BudgetComponent implements OnInit {
   showSpinner = true;
   selectedBudget;
   selectedBudgetCategory;
+  categorySelectedRowIndex = 0;
+
   constructor(private appService: AppService) {}
   ngOnInit(): void {
     this.appService
@@ -53,17 +55,17 @@ export class BudgetComponent implements OnInit {
       let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}`;
       this.appService.get(url).subscribe(
         (resp) => {
-          console.log('Response Selected budget ', resp);
-          // this.singleBudget = resp;
           this.showSpinner = false;
           this.selectedBudget = resp;
           this.selectedBudgetCategory = this.selectedBudget.data.budget.categories;
         },
         (err) => {
-          console.log('Error ', err);
           this.showSpinner = false;
         }
       );
     }
+  }
+  showCategoryDetail(selectedData, index) {
+    this.categorySelectedRowIndex = index;
   }
 }

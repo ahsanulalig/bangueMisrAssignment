@@ -25,6 +25,7 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row, let i = index; columns: displayedColumns;" class="body-data-row"
+      [ngClass] = "{'selected' : selectedRowIndex === i}"
       (click)="showBudgetDetail(row, i)"></tr>
   </table>
 </div>
@@ -52,7 +53,9 @@
         <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayColumnsSelectedBudgetCategory"></tr>
-      <tr mat-row *matRowDef="let row, let i = index; columns: displayColumnsSelectedBudgetCategory;" class="body-data-row"></tr>
+      <tr mat-row *matRowDef="let row, let i = index; columns: displayColumnsSelectedBudgetCategory;" class="body-data-row"
+      [ngClass] = "{'selected' : categorySelectedRowIndex === i}"
+      (click)="showCategoryDetail(row, i)"></tr>
     </table>
   </div>
   <div class="right-content">

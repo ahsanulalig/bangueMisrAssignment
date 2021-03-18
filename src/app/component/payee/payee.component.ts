@@ -21,13 +21,11 @@ export class PayeeComponent implements OnInit {
     let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/payees`;
     this.appService.get(url).subscribe(
       (resp) => {
-        console.log('List of Payees', resp);
         this.listOfPayees = resp;
         this.payees = this.listOfPayees.data.payees;
         this.showSpinner = false;
       },
       (err) => {
-        console.log('Error getting payee', err);
         this.showSpinner = false;
       }
     );

@@ -17,8 +17,8 @@
       cursor: pointer;
     }
 
-    tr.body-data-row :hover {
-      opacity: 1;
+    .body-data-row :hover {
+      // background-color:red;
     }
 
     table {
@@ -66,4 +66,8 @@
       cursor: pointer;
     }
   }
+  .body-data-row :hover{
+    // background-color: red;
+  }
+
 }
