@@ -9,15 +9,23 @@ import { AppService } from 'src/app/service/app.service';
 export class BudgetComponent implements OnInit {
   displayedColumns: string[] = [
     'name',
-    'last_month',
     'first_month',
+    'last_month',
     'last_modified_on',
+  ];
+  displayColumnsSelectedBudgetCategory = [
+    'name',
+    'budgeted',
+    'activity',
+    'balance',
   ];
   budgetsData;
   budgets;
   singleBudget;
   selectedRowIndex;
   showSpinner = true;
+  selectedBudget;
+  selectedBudgetCategory;
   constructor(private appService: AppService) {}
   ngOnInit(): void {
     this.appService
@@ -38,14 +46,16 @@ export class BudgetComponent implements OnInit {
   showBudgetDetail(selectedData, index) {
     this.selectedRowIndex = index;
     if (selectedData.id) {
-      this.showSpinner = true;
+      // this.showSpinner = true;
       this.appService.selectedBudgetId = selectedData.id;
       let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}`;
       this.appService.get(url).subscribe(
         (resp) => {
           console.log('Response Selected budget ', resp);
-          this.singleBudget = resp;
+          // this.singleBudget = resp;
           this.showSpinner = false;
+          this.selectedBudget = resp;
+          this.selectedBudgetCategory = this.selectedBudget.data.budget.categories;
         },
         (err) => {
           console.log('Error ', err);

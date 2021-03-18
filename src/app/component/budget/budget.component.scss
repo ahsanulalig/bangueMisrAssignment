@@ -14,6 +14,7 @@
 
     tr.body-data-row {
       opacity: 1;
+      cursor: pointer;
     }
 
     tr.body-data-row :hover {
@@ -53,11 +54,16 @@
   }
 }
 
-.budget-container{
+.budget-container {
   margin-top: 8px;
   display: flex;
   justify-content: space-evenly;
-  table{
+
+  table {
     width: 98%;
+
+    tr.body-data-row {
+      cursor: pointer;
+    }
   }
 }
