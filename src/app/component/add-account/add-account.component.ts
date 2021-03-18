@@ -1,33 +1,98 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AppService } from 'src/app/service/app.service';
+export interface Account {
+  name: string;
+  type: string;
+  balance: Number;
+  uncleared_balance: Number;
+  cleared_balance: Number;
+}
 @Component({
   selector: 'app-add-account',
   templateUrl: './add-account.component.html',
   styleUrls: ['./add-account.component.scss'],
 })
 export class AddAccountComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-  constructor() {}
+  displayedColumns: string[] = ['name', 'type', 'balance'];
+  accountData;
+  accounts;
+  singleAccount;
+  selectedRowIndex = 0;
+  defaultData = [
+    {
+      name: 'Electricity',
+      type: 'Electrical',
+      balance: 10,
+      uncleared_balance: 0,
+      cleared_balance: 0,
+      deleted: false,
+    },
+    {
+      name: 'Water',
+      type: 'Natural Resource',
+      balance: 20,
+      uncleared_balance: 0,
+      cleared_balance: 0,
+      deleted: false,
+    },
+    {
+      name: 'Laptop',
+      type: 'Electronics',
+      balance: 5,
+      uncleared_balance: 0,
+      cleared_balance: 0,
+      deleted: false,
+    },
+    {
+      name: 'Laptop',
+      type: 'Electronics',
+      balance: 5,
+      uncleared_balance: 0,
+      cleared_balance: 0,
+      deleted: true,
+    },
+  ];
+  constructor(private appService: AppService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
+    this.appService.get(url).subscribe(
+      (resp) => {
+        console.log('Response ', resp);
+        this.accountData = resp;
+        if (resp['data'].accounts.length) {
+          this.accounts = this.accountData.data.accounts.filter(
+            (account) => !account.deleted
+          );
+        } else {
+          this.accounts = this.defaultData.filter(
+            (account) => !account.deleted
+          );
+        }
+        this.accounts.sort((a, b) => b['balance'] - a['balance']);
+        this.singleAccount = this.accounts[0];
+      },
+      (err) => {
+        console.log('Error ', err);
+      }
+    );
+  }
+  showAccountDetail(selectedData, index) {
+    console.log('data ', selectedData, ' ', index);
+    this.selectedRowIndex = index;
+    if (selectedData.id) {
+      let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts/${selectedData.id}`;
+      this.appService.get(url).subscribe(
+        (resp) => {
+          console.log('Response ', resp);
+          this.singleAccount = resp;
+        },
+        (err) => {
+          console.log('Error ', err);
+        }
+      );
+    } else {
+      this.singleAccount = selectedData;
+    }
+  }
 }
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
