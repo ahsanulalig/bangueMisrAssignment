@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AppService } from 'src/app/service/app.service';
+import { Component, OnInit } from "@angular/core";
+import { AppService } from "src/app/service/app.service";
+import { CreateAccountModalComponent } from "src/app/modals/create-account-modal/create-account-modal.component";
+import { MatDialog } from "@angular/material/dialog";
 export interface Account {
   name: string;
   type: string;
@@ -8,44 +10,44 @@ export interface Account {
   cleared_balance: Number;
 }
 @Component({
-  selector: 'app-add-account',
-  templateUrl: './add-account.component.html',
-  styleUrls: ['./add-account.component.scss'],
+  selector: "app-add-account",
+  templateUrl: "./add-account.component.html",
+  styleUrls: ["./add-account.component.scss"],
 })
 export class AddAccountComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'type', 'balance'];
+  displayedColumns: string[] = ["name", "type", "balance"];
   accountData;
   accounts;
   singleAccount;
   selectedRowIndex = 0;
   defaultData = [
     {
-      name: 'Electricity',
-      type: 'Electrical',
+      name: "Electricity",
+      type: "Electrical",
       balance: 10,
       uncleared_balance: 0,
       cleared_balance: 0,
       deleted: false,
     },
     {
-      name: 'Water',
-      type: 'Natural Resource',
+      name: "Water",
+      type: "Natural Resource",
       balance: 20,
       uncleared_balance: 0,
       cleared_balance: 0,
       deleted: false,
     },
     {
-      name: 'Laptop',
-      type: 'Electronics',
+      name: "Laptop",
+      type: "Electronics",
       balance: 5,
       uncleared_balance: 0,
       cleared_balance: 0,
       deleted: false,
     },
     {
-      name: 'Laptop',
-      type: 'Electronics',
+      name: "Laptop",
+      type: "Electronics",
       balance: 5,
       uncleared_balance: 0,
       cleared_balance: 0,
@@ -53,16 +55,20 @@ export class AddAccountComponent implements OnInit {
     },
   ];
   showSpinner = true;
-  constructor(private appService: AppService) {}
+  // accountDetails: string;
+  // name;
+  // type;
+  // balance;
+  constructor(private appService: AppService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
     this.appService.get(url).subscribe(
       (resp) => {
         this.showSpinner = false;
-        console.log('Response ', resp);
+        console.log("Response ", resp);
         this.accountData = resp;
-        if (resp['data'].accounts.length) {
+        if (resp["data"].accounts.length) {
           this.accounts = this.accountData.data.accounts.filter(
             (account) => !account.deleted
           );
@@ -71,34 +77,57 @@ export class AddAccountComponent implements OnInit {
             (account) => !account.deleted
           );
         }
-        this.accounts.sort((a, b) => b['balance'] - a['balance']);
+        this.accounts.sort((a, b) => b["balance"] - a["balance"]);
         this.singleAccount = this.accounts[0];
       },
       (err) => {
-        console.log('Error ', err);
+        console.log("Error ", err);
         this.showSpinner = false;
       }
     );
   }
   showAccountDetail(selectedData, index) {
-    console.log('data ', selectedData, ' ', index);
+    console.log("data ", selectedData, " ", index);
     this.selectedRowIndex = index;
     if (selectedData.id) {
       this.showSpinner = true;
       let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts/${selectedData.id}`;
       this.appService.get(url).subscribe(
         (resp) => {
-          console.log('Response ', resp);
+          console.log("Response ", resp);
           this.singleAccount = resp;
           this.showSpinner = false;
         },
         (err) => {
-          console.log('Error ', err);
+          console.log("Error ", err);
           this.showSpinner = false;
         }
       );
     } else {
       this.singleAccount = selectedData;
     }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateAccountModalComponent, {
+      width: "30%",
+      //data: { name: this.name, type: this.type, balance: this.balance },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.showSpinner = true;
+      const data = { account: result.accountDetails };
+      let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
+      this.appService.post(url, data).subscribe(
+        (resp) => {
+          this.showSpinner = false;
+          this.ngOnInit();
+        },
+        (err) => {
+          console.log("Error ", err);
+          this.showSpinner = false;
+        }
+      );
+    });
   }
 }

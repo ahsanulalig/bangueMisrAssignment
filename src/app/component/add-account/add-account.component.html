@@ -1,3 +1,4 @@
+<div class="create-button" *ngIf="!showSpinner"><button mat-raised-button color="primary" (click)="openDialog()">Create Account</button></div>
 <div class="main-content" *ngIf="!showSpinner">
   <div class="left-content">
     <table mat-table [dataSource]="accounts" class="mat-elevation-z8">
