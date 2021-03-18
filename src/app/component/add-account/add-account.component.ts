@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AppService } from 'src/app/service/app.service';
-import { CreateAccountModalComponent } from 'src/app/modals/create-account-modal/create-account-modal.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from "@angular/core";
+import { AppService } from "src/app/service/app.service";
+import { CreateAccountModalComponent } from "src/app/modals/create-account-modal/create-account-modal.component";
+import { MatDialog } from "@angular/material/dialog";
 export interface Account {
   name: string;
   type: string;
@@ -10,12 +10,12 @@ export interface Account {
   cleared_balance: Number;
 }
 @Component({
-  selector: 'app-add-account',
-  templateUrl: './add-account.component.html',
-  styleUrls: ['./add-account.component.scss'],
+  selector: "app-add-account",
+  templateUrl: "./add-account.component.html",
+  styleUrls: ["./add-account.component.scss"],
 })
 export class AddAccountComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'type', 'balance'];
+  displayedColumns: string[] = ["name", "type", "balance"];
   accountData;
   accounts;
   singleAccount;
@@ -24,7 +24,7 @@ export class AddAccountComponent implements OnInit {
   constructor(private appService: AppService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    const selectedBudgetId = sessionStorage.getItem('selectedBudgetId');
+    const selectedBudgetId = sessionStorage.getItem("selectedBudgetId");
     if (selectedBudgetId) {
       this.appService.selectedBudgetId = selectedBudgetId;
     }
@@ -33,12 +33,12 @@ export class AddAccountComponent implements OnInit {
       (resp) => {
         this.showSpinner = false;
         this.accountData = resp;
-        if (resp['data'].accounts.length) {
+        if (resp["data"].accounts.length) {
           this.accounts = this.accountData.data.accounts.filter(
             (account) => !account.deleted
           );
         }
-        this.accounts.sort((a, b) => b['balance'] - a['balance']);
+        this.accounts.sort((a, b) => b["balance"] - a["balance"]);
         this.singleAccount = this.accounts[0];
       },
       (err) => {
@@ -67,23 +67,24 @@ export class AddAccountComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateAccountModalComponent, {
-      width: '30%',
+      width: "30%",
       //data: { name: this.name, type: this.type, balance: this.balance },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // this.showSpinner = true;
-      const data = { account: result.accountDetails };
-      let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
-      this.appService.post(url, data).subscribe(
-        (resp) => {
-          this.showSpinner = false;
-          this.ngOnInit();
-        },
-        (err) => {
-          this.showSpinner = false;
-        }
-      );
+      if (result) {
+        const data = { account: result.accountDetails };
+        let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
+        this.appService.post(url, data).subscribe(
+          (resp) => {
+            this.showSpinner = false;
+            this.ngOnInit();
+          },
+          (err) => {
+            this.showSpinner = false;
+          }
+        );
+      }
     });
   }
 }
