@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="main-content" *ngIf="!showSpinner">
   <div class="left-content">
     <table mat-table [dataSource]="accounts" class="mat-elevation-z8">
       <!-- Name Column -->
@@ -63,4 +63,6 @@
     <div class="line"></div>
   </div>
 </div>
-
+<div class="spinner-container" *ngIf="showSpinner">
+  <mat-spinner></mat-spinner>
+</div>

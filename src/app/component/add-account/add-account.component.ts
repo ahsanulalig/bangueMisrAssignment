@@ -52,12 +52,14 @@ export class AddAccountComponent implements OnInit {
       deleted: true,
     },
   ];
+  showSpinner = true;
   constructor(private appService: AppService) {}
 
   ngOnInit(): void {
     let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
     this.appService.get(url).subscribe(
       (resp) => {
+        this.showSpinner = false;
         console.log('Response ', resp);
         this.accountData = resp;
         if (resp['data'].accounts.length) {
@@ -74,6 +76,7 @@ export class AddAccountComponent implements OnInit {
       },
       (err) => {
         console.log('Error ', err);
+        this.showSpinner = false;
       }
     );
   }
@@ -81,14 +84,17 @@ export class AddAccountComponent implements OnInit {
     console.log('data ', selectedData, ' ', index);
     this.selectedRowIndex = index;
     if (selectedData.id) {
+      this.showSpinner = true;
       let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts/${selectedData.id}`;
       this.appService.get(url).subscribe(
         (resp) => {
           console.log('Response ', resp);
           this.singleAccount = resp;
+          this.showSpinner = false;
         },
         (err) => {
           console.log('Error ', err);
+          this.showSpinner = false;
         }
       );
     } else {
