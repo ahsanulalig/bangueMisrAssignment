@@ -1,13 +1,22 @@
 .app-container {
   display: flex;
   justify-content: space-evenly;
+
   .side-nave-container {
+    margin-top: 8px;
     width: 10%;
     min-height: 200px;
-    border: 2px solid blue;
+    .side-nav {
+      height: 125px;
+    }
+    .mat-toolbar-row,
+    .mat-toolbar-single-row {
+      flex-wrap: wrap;
+    }
   }
+
   .content-container {
-    width: 86%;
+    width: 90%;
     min-height: 200px;
   }
 }
