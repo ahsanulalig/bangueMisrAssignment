@@ -1,0 +1,71 @@
+<div class="create-button" ><button class="align-right" mat-raised-button color="primary" (click)="openDialog()">Add Account</button></div>
+<div class="page-content" >
+  <div class="list-content">
+    <table mat-table [dataSource]="accounts" class="mat-elevation-z8">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      </ng-container>
+
+      <!-- Balance Column -->
+      <ng-container matColumnDef="balance">
+        <th mat-header-cell *matHeaderCellDef> Balance </th>
+        <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+      </ng-container>
+
+      <!--Cleared Balance Column -->
+      <ng-container matColumnDef="cleared_balance">
+        <th mat-header-cell *matHeaderCellDef> Cleared Balance </th>
+        <td mat-cell *matCellDef="let element"> {{element.cleared_balance}} </td>
+      </ng-container>
+
+      <!--Cleared Balance Column -->
+      <ng-container matColumnDef="uncleared_balance">
+        <th mat-header-cell *matHeaderCellDef> Uncleared Balance </th>
+        <td mat-cell *matCellDef="let element"> {{element.uncleared_balance}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row, let i = index; columns: displayedColumns;" class="body-data-row"
+      [ngClass] = "{'selected' : selectedRowIndex === i}"
+      (click)="showAccountDetail(row, i)"></tr>
+    </table>
+  </div>
+  <div class="detail-content">
+    <div class="item">
+      <div class="mat-title"> Account Name : </div>
+      <div class="mat-subheading-2">{{singleAccount?.name}}</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Account Type : </div>
+      <div class="mat-subheading-2">{{singleAccount?.type}}</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Account Balance : </div>
+      <div class="mat-subheading-2">{{singleAccount?.balance}}</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Cleared Balance : </div>
+      <div class="mat-subheading-2">{{singleAccount?.cleared_balance}}</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Uncleared Balance : </div>
+      <div class="mat-subheading-2">{{singleAccount?.uncleared_balance}}</div>
+    </div>
+    <div class="line"></div>
+  </div>
+</div>
+<div class="spinner-container" *ngIf="showLoader">
+  <mat-spinner></mat-spinner>
+</div>
