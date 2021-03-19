@@ -1,23 +1,23 @@
-import { Component, OnInit } from "@angular/core";
-import { AppService } from "src/app/service/app.service";
+import { Component, OnInit } from '@angular/core';
+import { AppService } from 'src/app/service/app.service';
 
 @Component({
-  selector: "app-budget",
-  templateUrl: "./budget.component.html",
-  styleUrls: ["./budget.component.scss"],
+  selector: 'app-budget',
+  templateUrl: './budget.component.html',
+  styleUrls: ['./budget.component.scss'],
 })
 export class BudgetComponent implements OnInit {
   displayedColumns: string[] = [
-    "name",
-    "first_month",
-    "last_month",
-    "last_modified_on",
+    'name',
+    'first_month',
+    'last_month',
+    'last_modified_on',
   ];
   displayColumnsSelectedBudgetCategory = [
-    "name",
-    "budgeted",
-    "activity",
-    "balance",
+    'name',
+    'budgeted',
+    'activity',
+    'balance',
   ];
   budgetsData;
   budgets;
@@ -32,7 +32,7 @@ export class BudgetComponent implements OnInit {
   constructor(private appService: AppService) {}
   ngOnInit(): void {
     this.appService
-      .get("https://api.youneedabudget.com/v1/budgets?include_accounts=true")
+      .get('https://api.youneedabudget.com/v1/budgets?include_accounts=true')
       .subscribe(
         (resp) => {
           this.showSpinner = false;
@@ -40,7 +40,7 @@ export class BudgetComponent implements OnInit {
           this.budgets = this.budgetsData.data.budgets;
           this.singleBudget = this.budgets[0];
           this.appService.selectedBudgetId = this.singleBudget.id;
-          sessionStorage.setItem("selectedBudgetId", this.singleBudget.id);
+          sessionStorage.setItem('selectedBudgetId', this.singleBudget.id);
         },
         (error) => {
           this.showSpinner = false;
@@ -50,8 +50,8 @@ export class BudgetComponent implements OnInit {
   showBudgetDetail(selectedData, index) {
     this.selectedRowIndex = index;
     if (selectedData.id) {
-      // this.showSpinner = true;
-      sessionStorage.setItem("selectedBudgetId", selectedData.id);
+      this.showSpinner = true;
+      sessionStorage.setItem('selectedBudgetId', selectedData.id);
       this.appService.selectedBudgetId = selectedData.id;
       let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}`;
       this.appService.get(url).subscribe(
@@ -67,6 +67,7 @@ export class BudgetComponent implements OnInit {
     }
   }
   showCategoryDetail(selectedData, index) {
+    this.showSpinner = true;
     this.categorySelectedRowIndex = index;
     let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/categories/${selectedData.id}`;
     this.appService.get(url).subscribe(

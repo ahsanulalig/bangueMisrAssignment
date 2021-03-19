@@ -18,6 +18,7 @@ export class PayeeComponent implements OnInit {
     if (selectedBudgetId) {
       this.appService.selectedBudgetId = selectedBudgetId;
     }
+    this.showSpinner = true;
     let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/payees`;
     this.appService.get(url).subscribe(
       (resp) => {
