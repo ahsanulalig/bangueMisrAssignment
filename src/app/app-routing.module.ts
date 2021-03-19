@@ -1,24 +1,24 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AddAccountComponent } from './component/add-account/add-account.component';
-import { BudgetComponent } from './component/budget/budget.component';
-import { PayeeComponent } from './component/payee/payee.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { AddAccountComponent } from "./component/add-account/add-account.component";
+import { OnBoardingComponent } from "./component/onBoarding/onBoarding.component";
+import { PayeeComponent } from "./component/payee/payee.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: BudgetComponent,
+    path: "",
+    component: OnBoardingComponent,
   },
   {
-    path: 'budget',
-    component: BudgetComponent,
+    path: "budget",
+    component: OnBoardingComponent,
   },
   {
-    path: 'create-account',
+    path: "accounts",
     component: AddAccountComponent,
   },
   {
-    path: 'payee',
+    path: "payees",
     component: PayeeComponent,
   },
 ];

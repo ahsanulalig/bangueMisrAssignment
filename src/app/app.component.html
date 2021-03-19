@@ -2,12 +2,21 @@
   <mat-toolbar-row>
     <div>
       <a mat-button [routerLink]="'/budget'"> Budget </a>
-      <a mat-button [routerLink]="'/create-account'"> All Accounts </a>
-      <a mat-button [routerLink]="'/payee'"> List of Payee </a>
+      <a mat-button [routerLink]="'/accounts'"> Accounts </a>
+      <a mat-button [routerLink]="'/payees'"> Payees </a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+
+<div class="app-container">
+  <div class="side-nave-container">
+  </div>
+  <div class="content-container">
+    <router-outlet></router-outlet>
+  </div>
+  
+</div>
 
 
 

@@ -10,7 +10,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatTableModule } from "@angular/material/table";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { BudgetComponent } from "./component/budget/budget.component";
+import { OnBoardingComponent } from "./component/onBoarding/onBoarding.component";
 import { TokenInterceptorService } from "./service/token-interceptor.service";
 import { AddAccountComponent } from "./component/add-account/add-account.component";
 import { PayeeComponent } from "./component/payee/payee.component";
@@ -24,7 +24,7 @@ import { MatSelectModule } from "@angular/material/select";
 @NgModule({
   declarations: [
     AppComponent,
-    BudgetComponent,
+    OnBoardingComponent,
     AddAccountComponent,
     PayeeComponent,
     CreateAccountModalComponent,
