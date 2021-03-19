@@ -28,24 +28,7 @@ export class CreateAccountComponent implements OnInit {
     if (selectedBudgetId) {
       this.appService.selectedBudgetId = selectedBudgetId;
     }
-    this.showLoader = true;
-    let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
-    this.appService.get(url).subscribe(
-      (resp) => {
-        this.showLoader = false;
-        this.accountData = resp;
-        if (resp["data"].accounts.length) {
-          this.accounts = this.accountData.data.accounts.filter(
-            (account) => !account.deleted
-          );
-        }
-        this.accounts.sort((a, b) => b["balance"] - a["balance"]);
-        this.defaultAccount = this.accounts[0];
-      },
-      (err) => {
-        this.showLoader = false;
-      }
-    );
+    this.getAccountList();
   }
   showAccountDetail(selectedData, index) {
     this.selectedRowIndex = index;
@@ -68,7 +51,7 @@ export class CreateAccountComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddAccountModalComponent, {
-      width: "30%",
+      width: "22%",
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -79,7 +62,7 @@ export class CreateAccountComponent implements OnInit {
         this.appService.post(url, data).subscribe(
           (resp) => {
             this.showLoader = false;
-            this.ngOnInit();
+            this.getAccountList();
           },
           (err) => {
             this.showLoader = false;
@@ -87,5 +70,26 @@ export class CreateAccountComponent implements OnInit {
         );
       }
     });
+  }
+
+  getAccountList() {
+    this.showLoader = true;
+    let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
+    this.appService.get(url).subscribe(
+      (resp) => {
+        this.showLoader = false;
+        this.accountData = resp;
+        if (resp["data"].accounts.length) {
+          this.accounts = this.accountData.data.accounts.filter(
+            (account) => !account.deleted
+          );
+        }
+        this.accounts.sort((a, b) => b["balance"] - a["balance"]);
+        this.defaultAccount = this.accounts[0];
+      },
+      (err) => {
+        this.showLoader = false;
+      }
+    );
   }
 }
