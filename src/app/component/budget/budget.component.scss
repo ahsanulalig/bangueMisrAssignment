@@ -3,6 +3,7 @@
   align-items: flex-start;
   justify-content: space-evenly;
   margin-top: 8px;
+  flex-wrap: wrap;
 
   .left-content {
     width: 63%;
@@ -73,4 +74,15 @@
     // background-color: red;
   }
 
+}
+
+@media only screen and (max-width: 1024px) {
+  .main-content{
+    .left-content{
+      width: 98%;
+    }
+    .right-content{
+      width: calc(98% - 32px);
+    }
+  }
 }
