@@ -79,6 +79,31 @@
       <div class="mat-subheading-2">{{singleCategory?.balance}}</div>
     </div>
     <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Goal Target : </div>
+      <div class="mat-subheading-2">{{singleCategory?.goal_target}}</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Goal Percentage Complete : </div>
+      <div class="mat-subheading-2">{{singleCategory?.goal_percentage_complete || 0}}%</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Goal Overall Left : </div>
+      <div class="mat-subheading-2">{{singleCategory?.goal_overall_left}}</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Goal Type : </div>
+      <div class="mat-subheading-2">{{singleCategory?.goal_type}}</div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <div class="mat-title">Goal Target : </div>
+      <div class="mat-subheading-2">{{singleCategory?.goal_target}}</div>
+    </div>
+    <div class="line"></div>
   </div>
 </div>
 <div class="spinner-container" *ngIf="showSpinner">
