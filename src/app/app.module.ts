@@ -12,7 +12,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { OnBoardingComponent } from "./component/onBoarding/onBoarding.component";
 import { TokenInterceptorService } from "./service/token-interceptor.service";
-import { AddAccountComponent } from "./component/add-account/add-account.component";
+import { CreateAccountComponent } from "./component/create-account/create-account.component";
 import { PayeeComponent } from "./component/payee/payee.component";
 import { FormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -25,7 +25,7 @@ import { MatSelectModule } from "@angular/material/select";
   declarations: [
     AppComponent,
     OnBoardingComponent,
-    AddAccountComponent,
+    CreateAccountComponent,
     PayeeComponent,
     CreateAccountModalComponent,
   ],

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AddAccountComponent } from "./component/add-account/add-account.component";
+import { CreateAccountComponent } from "./component/create-account/create-account.component";
 import { OnBoardingComponent } from "./component/onBoarding/onBoarding.component";
 import { PayeeComponent } from "./component/payee/payee.component";
 
@@ -10,12 +10,12 @@ const routes: Routes = [
     component: OnBoardingComponent,
   },
   {
-    path: "budget",
+    path: "onboarding",
     component: OnBoardingComponent,
   },
   {
     path: "accounts",
-    component: AddAccountComponent,
+    component: CreateAccountComponent,
   },
   {
     path: "payees",

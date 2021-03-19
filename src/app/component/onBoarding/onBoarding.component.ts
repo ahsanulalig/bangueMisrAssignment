@@ -23,7 +23,7 @@ export class OnBoardingComponent implements OnInit {
   budgets;
   singleBudget;
   selectedRowIndex;
-  showSpinner = true;
+  showLoader = true;
   selectedBudget;
   selectedBudgetCategory;
   categorySelectedRowIndex = 0;
@@ -35,7 +35,7 @@ export class OnBoardingComponent implements OnInit {
       .get("https://api.youneedabudget.com/v1/budgets?include_accounts=true")
       .subscribe(
         (resp) => {
-          this.showSpinner = false;
+          this.showLoader = false;
           this.budgetsData = resp;
           this.budgets = this.budgetsData.data.budgets;
           this.singleBudget = this.budgets[0];
@@ -44,41 +44,41 @@ export class OnBoardingComponent implements OnInit {
           this.showBudgetDetail(this.budgets[0], 0);
         },
         (error) => {
-          this.showSpinner = false;
+          this.showLoader = false;
         }
       );
   }
   showBudgetDetail(selectedData, index) {
     this.selectedRowIndex = index;
     if (selectedData.id) {
-      this.showSpinner = true;
+      this.showLoader = true;
       sessionStorage.setItem("selectedBudgetId", selectedData.id);
       this.appService.selectedBudgetId = selectedData.id;
       let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}`;
       this.appService.get(url).subscribe(
         (resp) => {
-          this.showSpinner = false;
+          this.showLoader = false;
           this.selectedBudget = resp;
           this.selectedBudgetCategory = this.selectedBudget.data.budget.categories;
           this.showCategoryDetail(this.selectedBudgetCategory[0], 0);
         },
         (err) => {
-          this.showSpinner = false;
+          this.showLoader = false;
         }
       );
     }
   }
   showCategoryDetail(selectedData, index) {
-    this.showSpinner = true;
+    this.showLoader = true;
     this.categorySelectedRowIndex = index;
     let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/categories/${selectedData.id}`;
     this.appService.get(url).subscribe(
       (resp: any) => {
-        this.showSpinner = false;
+        this.showLoader = false;
         this.singleCategory = resp?.data?.category || {};
       },
       (err) => {
-        this.showSpinner = false;
+        this.showLoader = false;
       }
     );
   }

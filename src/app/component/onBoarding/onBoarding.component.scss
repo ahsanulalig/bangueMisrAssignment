@@ -1,11 +1,11 @@
-.main-content {
+.page-content {
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
   margin-top: 8px;
   flex-wrap: wrap;
 
-  .left-content {
+  .list-content {
     height: 455px;
     overflow: auto;
     width: 63%;
@@ -29,7 +29,7 @@
     }
   }
 
-  .right-content {
+  .detail-content {
     background: #f3ecee;
     height: 440px;
     overflow: auto;
@@ -63,7 +63,7 @@
   }
 }
 
-.budget-container {
+.onboarding-container {
   margin-top: 8px;
   display: flex;
   justify-content: space-evenly;
@@ -82,11 +82,11 @@
 }
 
 @media only screen and (max-width: 1024px) {
-  .main-content {
-    .left-content {
+  .page-content {
+    .list-content {
       width: 98%;
     }
-    .right-content {
+    .detail-content {
       width: calc(98% - 32px);
     }
   }

@@ -1,4 +1,4 @@
-<div class="budget-container">
+<div class="onboarding-container">
   <table mat-table [dataSource]="budgets" class="mat-elevation-z8">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -29,8 +29,8 @@
       (click)="showBudgetDetail(row, i)"></tr>
   </table>
 </div>
-<div class="main-content" *ngIf="selectedBudget">
-  <div class="left-content">
+<div class="page-content" *ngIf="selectedBudget">
+  <div class="list-content">
     <table mat-table [dataSource]="selectedBudgetCategory" class="mat-elevation-z8">
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -58,9 +58,9 @@
       (click)="showCategoryDetail(row, i)"></tr>
     </table>
   </div>
-  <div class="right-content">
+  <div class="detail-content">
     <div class="item">
-      <div class="mat-title">Name of Category : </div>
+      <div class="mat-title"> Category Name : </div>
       <div class="mat-subheading-2">{{singleCategory?.name}}</div>
     </div>
     <div class="line"></div>
@@ -106,7 +106,7 @@
     <div class="line"></div>
   </div>
 </div>
-<div class="spinner-container" *ngIf="showSpinner">
+<div class="spinner-container" *ngIf="showLoader">
   <mat-spinner></mat-spinner>
 </div>
 
