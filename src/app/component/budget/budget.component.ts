@@ -41,6 +41,7 @@ export class BudgetComponent implements OnInit {
           this.singleBudget = this.budgets[0];
           this.appService.selectedBudgetId = this.singleBudget.id;
           sessionStorage.setItem('selectedBudgetId', this.singleBudget.id);
+          this.showBudgetDetail(this.budgets[0], 0);
         },
         (error) => {
           this.showSpinner = false;
@@ -59,6 +60,7 @@ export class BudgetComponent implements OnInit {
           this.showSpinner = false;
           this.selectedBudget = resp;
           this.selectedBudgetCategory = this.selectedBudget.data.budget.categories;
+          this.showCategoryDetail(this.selectedBudgetCategory[0], 0);
         },
         (err) => {
           this.showSpinner = false;
