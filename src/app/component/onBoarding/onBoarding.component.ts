@@ -7,21 +7,11 @@ import { AppService } from "src/app/service/app.service";
   styleUrls: ["./onBoarding.component.scss"],
 })
 export class OnBoardingComponent implements OnInit {
-  displayedColumns: string[] = [
-    "name",
-    "first_month",
-    "last_month",
-    "last_modified_on",
-  ];
-  displayColumnsSelectedBudgetCategory = [
-    "name",
-    "budgeted",
-    "activity",
-    "balance",
-  ];
-  budgetsData;
+  displayedColumns: string[] = ["name", "f_month", "l_month", "last_modified"];
+  displayColumnsSelectedBudget = ["name", "budgeted", "activity", "balance"];
+  budgetResponse;
   budgets;
-  singleBudget;
+  defaultBudget;
   selectedRowIndex;
   showLoader = true;
   selectedBudget;
@@ -36,19 +26,19 @@ export class OnBoardingComponent implements OnInit {
       .subscribe(
         (resp) => {
           this.showLoader = false;
-          this.budgetsData = resp;
-          this.budgets = this.budgetsData.data.budgets;
-          this.singleBudget = this.budgets[0];
-          this.appService.selectedBudgetId = this.singleBudget.id;
-          sessionStorage.setItem("selectedBudgetId", this.singleBudget.id);
-          this.showBudgetDetail(this.budgets[0], 0);
+          this.budgetResponse = resp;
+          this.budgets = this.budgetResponse.data.budgets;
+          this.defaultBudget = this.budgets[0];
+          this.appService.selectedBudgetId = this.defaultBudget.id;
+          sessionStorage.setItem("selectedBudgetId", this.defaultBudget.id);
+          this.displyBudgetDetails(this.budgets[0], 0);
         },
         (error) => {
           this.showLoader = false;
         }
       );
   }
-  showBudgetDetail(selectedData, index) {
+  displyBudgetDetails(selectedData, index) {
     this.selectedRowIndex = index;
     if (selectedData.id) {
       this.showLoader = true;

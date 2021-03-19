@@ -11,18 +11,18 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.spinner-container {
+.loader-content {
+  background-color: rgb(185, 167, 202);
+  opacity: 0.4;
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   top: 0;
-  z-index: 99999;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(185, 167, 202);
-  opacity: 0.7;
+  z-index: 99999;
 }
 
 th.mat-header-cell {
@@ -30,6 +30,6 @@ th.mat-header-cell {
   font-weight: bold;
 }
 
-.selected {
+.active-row-class {
   background-color: #e2aec2;
 }

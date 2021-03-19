@@ -18,7 +18,7 @@ import { FormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { CreateAccountModalComponent } from "./modals/create-account-modal/create-account-modal.component";
+import { AddAccountModalComponent } from "./modals/add-account-modal/add-account-modal.component";
 import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
@@ -27,7 +27,7 @@ import { MatSelectModule } from "@angular/material/select";
     OnBoardingComponent,
     CreateAccountComponent,
     PayeeComponent,
-    CreateAccountModalComponent,
+    AddAccountModalComponent,
   ],
   imports: [
     BrowserModule,

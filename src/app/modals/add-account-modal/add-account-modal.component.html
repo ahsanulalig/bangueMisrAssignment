@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Add Account</h1>
+<div mat-dialog-content>
+    <p>What type of account are you adding?</p>
+    <mat-form-field>
+        <mat-label>Select account type...</mat-label>
+        <mat-select [(ngModel)]="accountData.type">
+            <mat-option *ngFor="let option of accountTypeOption" [value]="option.key">{{option.value}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <p>Give it a nickname</p>
+    <mat-form-field>
+        <input matInput [(ngModel)]="accountData.name">
+    </mat-form-field>
+    <p>What is your current account balance?</p>
+    <mat-form-field>
+        <input matInput [(ngModel)]="accountData.balance">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-button (click)="save()" cdkFocusInitial>Save</button>    
+</div>

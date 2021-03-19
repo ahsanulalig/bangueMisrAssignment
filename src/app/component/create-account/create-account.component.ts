@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { AppService } from "../../service/app.service";
-import { CreateAccountModalComponent } from "../../modals/create-account-modal/create-account-modal.component";
+import { AddAccountModalComponent } from "../../modals/add-account-modal/add-account-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 export interface Account {
   name: string;
   type: string;
   balance: Number;
-  uncleared_balance: Number;
-  cleared_balance: Number;
+  uncleared_bal: Number;
+  cleared_bal: Number;
 }
 @Component({
   selector: "app-create-account",
@@ -18,7 +18,7 @@ export class CreateAccountComponent implements OnInit {
   displayedColumns: string[] = ["name", "type", "balance"];
   accountData;
   accounts;
-  singleAccount;
+  defaultAccount;
   selectedRowIndex = 0;
   showLoader = true;
   constructor(private appService: AppService, public dialog: MatDialog) {}
@@ -40,7 +40,7 @@ export class CreateAccountComponent implements OnInit {
           );
         }
         this.accounts.sort((a, b) => b["balance"] - a["balance"]);
-        this.singleAccount = this.accounts[0];
+        this.defaultAccount = this.accounts[0];
       },
       (err) => {
         this.showLoader = false;
@@ -54,7 +54,7 @@ export class CreateAccountComponent implements OnInit {
       let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts/${selectedData.id}`;
       this.appService.get(url).subscribe(
         (resp: any) => {
-          this.singleAccount = resp?.data?.account || {};
+          this.defaultAccount = resp?.data?.account || {};
           this.showLoader = false;
         },
         (err) => {
@@ -62,19 +62,19 @@ export class CreateAccountComponent implements OnInit {
         }
       );
     } else {
-      this.singleAccount = selectedData;
+      this.defaultAccount = selectedData;
     }
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CreateAccountModalComponent, {
+    const dialogRef = this.dialog.open(AddAccountModalComponent, {
       width: "30%",
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.showLoader = true;
-        const data = { account: result.accountDetails };
+        const data = { account: result.accountData };
         let url = `https://api.youneedabudget.com/v1/budgets/${this.appService.selectedBudgetId}/accounts`;
         this.appService.post(url, data).subscribe(
           (resp) => {
